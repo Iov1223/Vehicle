@@ -11,6 +11,14 @@ namespace Vehicle001 {
         public string size { get; set; }
 
         public abstract void Move();
+        public virtual void ShowInformation()
+        {
+            
+            Console.WriteLine("\nНазвание: {0}.", name);
+            Move();
+            Console.WriteLine("\nMаксимальная скорость: до {0} км\\ч.\nГабаритные размеры: {1}.", motion, size);
+           
+        }
 
     }
     class Мotorbike : Vehicle {
@@ -23,8 +31,13 @@ namespace Vehicle001 {
         }
         public int wheelCount { get; set; }
 
-        public override void Move() {
-            Console.WriteLine("Название: {0}.\nMаксимальная скорость: до {1} км\\ч.\nГабаритные размеры: {2}.\nКоличество колёс: {3} шт.\n", name, motion, size, wheelCount);
+        public override void Move()
+        {
+            Console.Write("Передвижение: {0} - Ездит по твёрдой горизонтальной поверхности.", name);
+        }
+        public new void ShowInformation() {
+            base.ShowInformation();
+            Console.WriteLine("Количество колёс: {0} шт.", wheelCount);
         }
     }
     class Car : Мotorbike {
@@ -33,17 +46,30 @@ namespace Vehicle001 {
             motion = 140;
             size = "длина 4166. ширина 1611. высота 1444"; 
             wheelCount = 4;
-            wheelCount = 425;
+            passengerCapacity = "Водитель + 4 пассажира";
         }
-        public int loadСapacity { get; set; }
+        public string passengerCapacity { get; set; }
 
+        public new void ShowInformation()
+        {
+            base.ShowInformation();
+            Console.WriteLine("Пассажировместимость: {0}", passengerCapacity);
+        }
     }
+    class Truck : Car
+    { 
+    }
+
     class Program {
         static void Main(string[] args) {
+            Console.WriteLine("\t\tТранспортные средства:");
             Мotorbike MR = new Мotorbike(); 
-            MR.Move();
+            MR.ShowInformation();
             Car c = new Car();
-            c.Move();
+            c.ShowInformation();
+            Truck truck = new Truck();  
+            truck.ShowInformation();
+            Console.WriteLine();
         }
     }
 }
